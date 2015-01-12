@@ -117,7 +117,7 @@ define([
 			});
         }
         ,autoCheckDropdownItem:function(bm_title) {
-			//console.log('autoCheckDropdownItem',bm_title);
+
 	       var _this=this;
            var ch = this.menu.getChildren();
            array.forEach(ch, function (c) {
@@ -147,7 +147,7 @@ define([
             return isIn;
 		}
         ,updateLocation:  function(evt) {
-			//console.log('updateLocation');
+
 		  var extnt=evt.extent;
 	      this.availableWMSBasemaps=[];
           var _this=this;

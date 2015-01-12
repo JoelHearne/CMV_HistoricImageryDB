@@ -1,5 +1,3 @@
-//mapservLayer
-
 define([ "dojo/_base/declare", "esri/layers/agsdynamic", "esri/tasks/geometry" ],
   function(declare) {
     return declare([esri.layers.DynamicMapServiceLayer], {

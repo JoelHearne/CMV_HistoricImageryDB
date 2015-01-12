@@ -96,9 +96,6 @@ define([
         }
         ,updateSliderIndex: function(bm){
 
-          ////console.log("updateSliderIndex");
-          ////console.log("updateSliderIndex",bm,this.timeSlider.timeStops);
-
           this.disableChangeBasemap=true;  // we want to suppress changebasemap from publishing request to modbasemaps
           var newidx=-1;
 
