@@ -1,0 +1,25 @@
+ 
+
+#bottomPanel {
+       left: 50%;
+        margin: 5 auto;
+        margin-left: -500px;
+        position: absolute;
+        bottom: 1.5em;
+        opacity:0.9;
+        z-index: 98;
+        font-size:11pt;
+      }
+
+#timeInfo{
+        border-radius: 2px;
+        border: solid 2px #ccc;
+        background-color: #fff;
+        display: block;
+        padding: 7px;
+        position: relative;
+        text-align: center;
+        font-size:11pt;
+        width: 900px;
+        z-index: 99;
+      }
