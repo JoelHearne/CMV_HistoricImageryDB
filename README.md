@@ -1,5 +1,5 @@
 # CMV_HistoricImageryDB
 Historic imagery slider widget that pulls JPEG2000 imagery from an [OSGEO MapServer](http://mapserver.org/) instance.  The 3rd party basemaps are made possible by the "mapservLayer" custom widget.  I gave up on getting JSAPI or CMV to work with non-ESRI WMS layers out of the box.  The BaseMap widget is replaced by a custom basemap widget,"ModBasemaps", that integrates with the image slider widget.  The image slider and modified basemap widgets adjust the available selection options to only show imagery datasets that are available for the current view.  This widget is loosely designed to mimic the Google Earth historic image slider.  
 
-This project also demonstrates an alternative to using ESRI's paradigm of using tiled AGS map services for basemaps.
+This project also demonstrates a potential alternative to ESRI's paradigm for basemaps of using tiled AGS map services.  I use a tiled AGS map service for the primary base layer and a dozen or so adhoc imagery layers from a WMS service host via mapserv.exe (MapServer).  This makes it possible for me to leverage all of the benefits of GDAL and other OSGEO tools. 
  

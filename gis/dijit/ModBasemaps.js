@@ -13,8 +13,8 @@ define([
     'dojo/text!./Basemaps/templates/Basemaps.html',
     'esri/dijit/BasemapGallery',
     'esri/geometry/Extent',
-     "esri/SpatialReference",
-     './mapservLayer',
+    'esri/SpatialReference',
+    './mapservLayer',
     'dojo/i18n!./Basemaps/nls/resource',
     'dijit/form/DropDownButton',
     'xstyle/css!./Basemaps/css/Basemaps.css'
@@ -27,9 +27,6 @@ define([
         i18n: i18n,
         mode: 'agol',
         title: i18n.title,
-        //baseClass: 'gis_Basemaps_Dijit',
-        //buttonClass: 'gis_Basemaps_Button',
-        //menuClass: 'gis_Basemaps_Menu',
         mapStartBasemap: 'streets',
         basemapsToShow: ['streets', 'satellite', 'hybrid', 'topo', 'gray', 'oceans', 'national-geographic', 'osm'],
         validBasemaps: [],
@@ -60,7 +57,6 @@ define([
             var _this=this;
             array.forEach(this.basemapsToShow, function (basemap) {
                 if (this.basemaps.hasOwnProperty(basemap)) {
-                    //this.activeBasemap=this.basemap;
 
                     if (this.basemaps[basemap].ms_url || (this.basemaps[basemap].image_slider)) {
                          this.availableWMSBasemaps.push(this.basemaps[basemap]);
@@ -98,11 +94,9 @@ define([
             }, this);
             this.dropDownButton.set('dropDown', this.menu);
 
-
             _this.activeBasemap=this.currentBasemap;
 			// listen for request for valid basemaps and then publish response
 			topic.subscribe('ModBasemaps/getCurrentBasemaps', function (r) {
-				 //console.log('ModBasemaps/getCurrentBasemaps  _this.activeBasemap',_this.activeBasemap);
 				 topic.publish('ImageSlider/recieveBasemaps', {
 					     basemaps:_this.availableWMSBasemaps,
 				         activeBasemap:_this.basemaps[_this.activeBasemap],
@@ -112,12 +106,10 @@ define([
 
 			// listen for request to toggle basemap
 			topic.subscribe('ModBasemaps/setCurrentBasemap', function (r) {
-				//console.log('ModBasemaps/setCurrentBasemap',r);
 				_this.autoCheckDropdownItem(r.activeBasemap.title) ;
 			});
         }
         ,autoCheckDropdownItem:function(bm_title) {
-
 	       var _this=this;
            var ch = this.menu.getChildren();
            array.forEach(ch, function (c) {
@@ -147,7 +139,6 @@ define([
             return isIn;
 		}
         ,updateLocation:  function(evt) {
-
 		  var extnt=evt.extent;
 	      this.availableWMSBasemaps=[];
           var _this=this;
@@ -157,7 +148,6 @@ define([
                  //check basemap extents for mi.id but, only if it is a mapserver layer
                  if (mi.id.indexOf("o_")==0 || (this.basemaps[mi.id].image_slider)) {
 					 var isin=this.checkbasemapextent(extnt,mi.id);
-					 //////console.log( "isin " ,isin);
 					 if (!isin) {
 						 mi.destroyRecursive(false);
 					 } else {
@@ -171,13 +161,8 @@ define([
             array.forEach(this.basemapsToShow, function (basemap) {
                 if (this.basemaps.hasOwnProperty(basemap)) {
 
-                 if (this.basemaps[basemap].ms_url || (this.basemaps[basemap].image_slider)) {
-                         //this.availableWMSBasemaps.push(this.basemaps[basemap]);
-				 }
                  if (basemap.indexOf("o_")==0 || (this.basemaps[basemap].image_slider)) {
 					 var isin=this.checkbasemapextent(extnt,basemap);
-					 //var bm=this.basemaps[basemap];
-
 					 var cidx=this.menu.getIndexOfChild(dijit.byId(basemap));
 
 					 if (isin && cidx==-1) { // if isin and not in dropdown add basemap to dropdown
@@ -225,9 +210,7 @@ define([
                 }
             }, this);
 
-            //console.log('!!!! updateLocation  b4 this.availableWMSBasemaps',this.activeBasemap);
             if (isAdded) this.sortMenuItems();  // resort menu items
-            //console.log('!!!! updateLocation  after this.availableWMSBasemaps',this.activeBasemap);
 
             // set the dropdown selection to the current basemap
             this.autoCheckDropdownItem(this.basemaps[this.activeBasemap].title) ;
@@ -261,11 +244,10 @@ define([
              var cntr=0;
              var _this=this;
              var menuitms= this.menu.getDescendants();
+
              array.forEach(menuitms, function (mi) {
                  srtarry.push(mi.label);
              }, this);
-
-             // srtarry.sort();
 
              // destroy all menu items
              array.forEach(menuitms, function (mi) {
@@ -275,30 +257,19 @@ define([
              // readd menu items
             array.forEach(this.basemapsToShow, function (basemap) {
                 if (this.basemaps.hasOwnProperty(basemap)) {
-
-                 //this.activeBasemap=this.basemap;
-
                  if (this.basemaps[basemap].ms_url || (this.basemaps[basemap].image_slider)) {
                          this.availableWMSBasemaps.push(this.basemaps[basemap]);
 				 }
-
-                   if (srtarry.indexOf(this.basemaps[basemap].title) !=-1){
-					    //////console.log("ReAdding menu item",basemap);
+                 if (srtarry.indexOf(this.basemaps[basemap].title) !=-1){
 						var menuItem = new MenuItem({
 							id: basemap,
 							label: this.basemaps[basemap].title,
 							iconClass: (basemap == this.mapStartBasemap) ? 'selectedIcon' : 'emptyIcon',
 							onClick: lang.hitch(this, function () {
 								if (basemap !== this.currentBasemap) {
-
 									_this.activeBasemap=this.basemap;
-
-									//////console.log("this.basemaps[basemap]",this.basemaps[basemap]);
 									if (this.basemaps[basemap].ms_url) {
-									   //////console.log("this.basemaps[basemap].url");
 									   this.toggleCustomBasemap(this.basemaps[basemap],basemap);
-
-
 									} else {
 
 										this.currentBasemap = basemap;
@@ -326,9 +297,6 @@ define([
             }, this);
 		}
         ,toggleCustomBasemap : function(bm,bm_id){
-			//this.inherited(arguments);
-			//console.log('toggleCustomBasemap');
-
 		   this.activeBasemap=bm_id;
 
            this.hideBaseMap();
@@ -346,18 +314,14 @@ define([
             var _this=this;
 		    topic.publish('ImageSlider/changeBasemap', {
 					     basemap:_this.basemaps[_this.activeBasemap]
-           });
+            });
 
 		},
 		toggleAGSBasemap: function(bm_id){
-			//console.log('toggleAGSBasemap');
 		   if (this.mode === 'custom') {
-			      //if (this.map.getBasemap() !== this.mapStartBasemap) { //based off the title of custom basemaps in viewer.js config
-			      this.gallery.select(bm_id);
+    		     this.gallery.select(bm_id);
 
 		    } else {
-			     //if (this.mapStartBasemap) {
-			     //if (this.map.getBasemap() !== this.mapStartBasemap) { //based off the agol basemap name
 			     this.map.setBasemap(bm_id);
             }
 		},
@@ -379,7 +343,6 @@ define([
 
 		},
 	     hideBaseMap: function(){
-			 //this.inherited(arguments);
 			var _this = this;
 			var lyrs2rem=new Array();
 			dojo.forEach(this.map.layerIds, function(id){
@@ -388,16 +351,12 @@ define([
 			if (layer.id.indexOf('layer') !=-1){
 				  var ltr=_this.map.getLayer(layer.id);
 				  lyrs2rem.push(ltr);
-				  //_this.map.removeLayer(_this.map.getLayer(layer.id));
 			  }
 		    });
             _this.map.removeLayer(lyrs2rem[0]);
 		  }  ,
         startup: function () {
            this.inherited(arguments);
-
-           //console.log('startup');
-
            this.activeBasemap=this.mapStartBasemap;
 
            if (this.mode === 'custom') {
@@ -411,13 +370,6 @@ define([
                     }
                 }
             }
-             /*var _this=this;
-			 topic.publish('ImageSlider/recieveBasemaps', {
-					     basemaps:_this.availableWMSBasemaps,
-				         activeBasemap:_this.basemaps[_this.activeBasemap],
-				         currentBasemap:_this.basemaps[_this.activeBasemap]
-             });
-             */
         }
     });
 });

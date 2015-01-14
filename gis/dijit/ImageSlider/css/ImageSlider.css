@@ -1,14 +1,16 @@
  
 
 #bottomPanel {
-       left: 50%;
-        margin: 5 auto;
-        margin-left: -500px;
+        left: 50%;
+        //margin: 2 auto;
+        margin: 0px 0px 0px -500px;
+        padding: 0px 0px 8px 0px;
+        //margin-left: -500px;
         position: absolute;
         bottom: 1.5em;
-        opacity:0.9;
+        opacity:0.85;
         z-index: 98;
-        font-size:11pt;
+        font-size:9pt;
       }
 
 #timeInfo{
@@ -16,10 +18,73 @@
         border: solid 2px #ccc;
         background-color: #fff;
         display: block;
-        padding: 7px;
+        //padding: 2px;
+        padding: 0px 0px 9px 0px;
         position: relative;
         text-align: center;
-        font-size:11pt;
-        width: 900px;
+        font-size:9pt;
+        width: 800px;
         z-index: 99;
       }
+ 
+ 
+/*#bottomPanel span  {
+//#timeSliderDiv   {
+// #bottomPanel [role="button"] {
+*/
+/*
+#timeSliderDiv .dbootstrap .dijitButton .dijitButtonNode, .dbootstrap .dijitDropDownButton .dijitButtonNode, .dbootstrap .dijitComboButton .dijitButtonNode, .dbootstrap .dijitToggleButton .dijitButtonNode, .dbootstrap .dijitComboBox .dijitButtonNode, .dbootstrap .dijitSpinnerButtonContainer.dijitButtonNode, .dbootstrap .dijitSelect .dijitButtonNode {
+    padding: 2px 2px;
+ 
+}
+*/
+
+#timeSliderDiv span {
+    
+    padding: 0px 0px 0px 0px;
+    margin : 0px 0px 0px 0px;
+ 
+    vertical-align: middle;
+    cursor: pointer;
+    
+ 
+    /*background-repeat: repeat-x;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(187, 187, 187) rgb(187, 187, 187) rgb(168, 168, 168);
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+    border-radius: 4px;
+    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2) inset, 0px 1px 2px rgba(0, 0, 0, 0.05);
+    */
+}
+
+/*
+ #sfs .dbootstrap .dijitButton .dijitButtonNode, .dbootstrap .dijitDropDownButton .dijitButtonNode, .dbootstrap .dijitComboButton .dijitButtonNode, .dbootstrap .dijitToggleButton .dijitButtonNode, .dbootstrap .dijitComboBox .dijitButtonNode, .dbootstrap .dijitSpinnerButtonContainer.dijitButtonNode, .dbootstrap .dijitSelect .dijitButtonNode {
+    display: block;
+    padding: 0px 0px;
+    margin-bottom: 0px;
+    font-size: 10px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: -moz-linear-gradient(center top , rgb(255, 255, 255) 0%, rgb(230, 230, 230) 100%);
+    color: rgb(151, 51, 51);
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.75);
+    background-color: rgb(230, 230, 230);
+    background-repeat: repeat-x;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(187, 187, 187) rgb(187, 187, 187) rgb(168, 168, 168);
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+    border-radius: 4px;
+    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2) inset, 0px 1px 2px rgba(0, 0, 0, 0.05);
+}
+*/

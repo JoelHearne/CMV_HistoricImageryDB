@@ -24,6 +24,7 @@ define([
 
  basemapsToShow: [ 'ortho_2013'
  //,'ortho_ms'
+ ,'o_okaloosa_north_mosaic_01_1993_4800_10p','o_okaloosa_destin_mosiac_1994','o_okaloosa_north_rgb_03_2002_47p','o_okaloosa_fwb_mosiac_02_1999_5p','o_okaloosa_niceville_mosiac_02_1999_5p','o_FWB_Mosaic1955_SP'
 ,'o_okaloosa_destin_mosiac_09_2001','o_NorthOkaloosa10_06_03','o_okaloosa_rgb_fwb_nv_05_2004_20p','o_okaloosa_rgb_04_2005_20p','o_02072007_OkaloosaBeach','o_OKaloosa_25p','o_001_69765_a_RGBMosaic','o_002_69759_a_RGBMosaic','o_003_69764_b_RGBMosaic','o_004_69760_a_RGBMosaic','o_005_69761_A_RGBMosaic','o_006_69762_b_RGBMosaic','o_007_69763_A_RGBMosaic','o_008_69766_b_RGBMosaic','o_009_69767_a_RGBMosaic','o_010_69768_a_RGBMosaic','o_011_69770_b_RGBMosaic','o_012_69769_a_RGBMosaic','o_013_69771_a_RGBMosaic','o_014_69772_a_RGBMosaic','o_015_69773_a_RGBMosaic','o_016_69774_a_RGBMosaic','o_destin_rgb_02_2010_20p','o_fwb_rgb_02_2010_20p','o_niceville_rgb_02_2010_20p','o_mbb_10_14_2011_20p'
  //, 'esri_terrain','esri_streets','esri_topo','esri_imagery','nav_charts'
  ],
@@ -48,7 +49,96 @@ define([
  				ms_bounds:"-9666387.06023,3546184.59962,-9612343.06531,3638024.20775",
  				ms_date:"09/01/2013",
  				ms_year:"2013"
-            },
+            }
+       ,o_okaloosa_north_mosaic_01_1993_4800_10p: {
+				title: '1993 North Okaloosa',
+				basemap: new esri.dijit.Basemap({
+					id: 'o_okaloosa_north_mosaic_01_1993_4800_10p',
+					title:'o_okaloosa_north_mosaic_01_1993_4800_10p',
+					layers: []
+				}),
+				ms_url: "http://gisvm101/ms/cgi/mapserv.exe?",
+				ms_layers:"okaloosa_north_mosaic_01_1993_4800_10p",
+				ms_map:"f:\\ms\\data\\orthos\\img.map",
+				ms_bounds:"-9662830.62818,3584120.23872,-9615930.34188,3633205.07314",
+				ms_date:"1/1/1993",
+				ms_year:"1993"
+	    }
+
+       ,o_okaloosa_destin_mosiac_1994: {
+				title: '1994 Destin',
+				basemap: new esri.dijit.Basemap({
+					id: 'o_okaloosa_destin_mosiac_1994',
+					title:'o_okaloosa_destin_mosiac_1994',
+					layers: []
+				}),
+				ms_url: "http://gisvm101/ms/cgi/mapserv.exe?",
+				ms_layers:"okaloosa_destin_mosiac_1994",
+				ms_map:"f:\\ms\\data\\orthos\\img.map",
+				ms_bounds:"-9632432.23178,3551354.27503,-9617234.12524,3557864.36342",
+				ms_date:"2/1/1994",
+				ms_year:"1994"
+	    }
+
+       ,o_okaloosa_north_rgb_03_2002_47p: {
+				title: '2002 North Okaloosa',
+				basemap: new esri.dijit.Basemap({
+					id: 'o_okaloosa_north_rgb_03_2002_47p',
+					title:'o_okaloosa_north_rgb_03_2002_47p',
+					layers: []
+				}),
+				ms_url: "http://gisvm101/ms/cgi/mapserv.exe?",
+				ms_layers:"okaloosa_north_rgb_03_2002_47p",
+				ms_map:"f:\\ms\\data\\orthos\\img.map",
+				ms_bounds:"-9664214.66895,3583934.08258,-9614456.32451,3633380.55872",
+				ms_date:"3/1/2002",
+				ms_year:"2002"
+	    }
+
+       ,o_okaloosa_fwb_mosiac_02_1999_5p: {
+				title: '1999 Fort Walton beach',
+				basemap: new esri.dijit.Basemap({
+					id: 'o_okaloosa_fwb_mosiac_02_1999_5p',
+					title:'o_okaloosa_fwb_mosiac_02_1999_5p',
+					layers: []
+				}),
+				ms_url: "http://gisvm101/ms/cgi/mapserv.exe?",
+				ms_layers:"okaloosa_fwb_mosiac_02_1999_5p",
+				ms_map:"f:\\ms\\data\\orthos\\img.map",
+				ms_bounds:"-9662798.40409,3553230.4868,-9633839.65131,3568879.95308",
+				ms_date:" 2/1/1999",
+				ms_year:"1999"
+	    }
+
+       ,o_okaloosa_niceville_mosiac_02_1999_5p: {
+				title: '1999 Niceville',
+				basemap: new esri.dijit.Basemap({
+					id: 'o_okaloosa_niceville_mosiac_02_1999_5p',
+					title:'o_okaloosa_niceville_mosiac_02_1999_5p',
+					layers: []
+				}),
+				ms_url: "http://gisvm101/ms/cgi/mapserv.exe?",
+				ms_layers:"okaloosa_niceville_mosiac_02_1999_5p",
+				ms_map:"f:\\ms\\data\\orthos\\img.map",
+				ms_bounds:"-9632349.3397,3560646.18257,-9617080.82608,3576523.7754",
+				ms_date:"2/1/1999",
+				ms_year:"1999"
+	    }
+
+       ,o_FWB_Mosaic1955_SP: {
+				title: '1955 Fort Walton beach',
+				basemap: new esri.dijit.Basemap({
+					id: 'o_FWB_Mosaic1955_SP',
+					title:'o_FWB_Mosaic1955_SP',
+					layers: []
+				}),
+				ms_url: "http://gisvm101/ms/cgi/mapserv.exe?",
+				ms_layers:"FWB_Mosaic1955_SP",
+				ms_map:"f:\\ms\\data\\orthos\\img.map",
+				ms_bounds:"-9646889.32115,3554128.39055,-9636557.41255,3565796.82375",
+				ms_date:" 4/1/1955",
+				ms_year:"1955"
+	    }
 
             /*ortho_ms: {
  				title: 'ortho_ms',
@@ -64,7 +154,7 @@ define([
  				ms_map:"d:\\inetpub\\wwwroot\\ms6\\data\\pa\\map.map"
             },*/
 
-       o_okaloosa_destin_mosiac_09_2001: {
+     ,  o_okaloosa_destin_mosiac_09_2001: {
  				title: '2001 Destin',
  				basemap: new esri.dijit.Basemap({
  					id: 'o_okaloosa_destin_mosiac_09_2001',
