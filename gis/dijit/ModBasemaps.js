@@ -67,6 +67,7 @@ define([
                         label: this.basemaps[basemap].title,
                         iconClass: (basemap == this.mapStartBasemap) ? 'selectedIcon' : 'emptyIcon',
                         onClick: lang.hitch(this, function () {
+                            console.log("dropdown clickeddd",basemap,this.basemap);
                             if (basemap !== this.currentBasemap) {
 								if (this.basemaps[basemap].ms_url) {
                                    this.toggleCustomBasemap(this.basemaps[basemap],basemap);
@@ -106,10 +107,12 @@ define([
 
 			// listen for request to toggle basemap
 			topic.subscribe('ModBasemaps/setCurrentBasemap', function (r) {
+				console.log("ModBasemaps/setCurrentBasemap",r);
 				_this.autoCheckDropdownItem(r.activeBasemap.title) ;
 			});
         }
         ,autoCheckDropdownItem:function(bm_title) {
+			console.log("autoCheckDropdownItem",bm_title,this.activeBasemap);
 	       var _this=this;
            var ch = this.menu.getChildren();
            array.forEach(ch, function (c) {
@@ -126,6 +129,7 @@ define([
                  }
 			  }
           });
+          console.log(" finished autoCheckDropdownItem",bm_title,this.activeBasemap);
 		}
         ,checkbasemapextent:function(ext,basemapid){
             var isIn=true;
@@ -139,6 +143,13 @@ define([
             return isIn;
 		}
         ,updateLocation:  function(evt) {
+
+		  console.log("updateLocation",evt,"  this.activeBasemap",this.activeBasemap);
+
+		  //TODO: Handle scenario where the current basemap is no longer in the extent view
+		  var isBMOutOfBounds=false;
+
+
 		  var extnt=evt.extent;
 	      this.availableWMSBasemaps=[];
           var _this=this;
@@ -150,6 +161,9 @@ define([
 					 var isin=this.checkbasemapextent(extnt,mi.id);
 					 if (!isin) {
 						 mi.destroyRecursive(false);
+
+						 if (mi.id==this.activeBasemap)	 isBMOutOfBounds=true; // check if current basemap is out of bounds
+
 					 } else {
 						 this.availableWMSBasemaps.push(this.basemaps[mi.id]);
 					 }
@@ -174,7 +188,7 @@ define([
 							label: this.basemaps[basemap].title,
 							iconClass: (basemap == this.mapStartBasemap) ? 'selectedIcon' : 'emptyIcon',
 							onClick: lang.hitch(this, function () {
-
+                                console.log("dropdown clicked",basemap,this.basemap);
 								_this.activeBasemap=this.basemap;
 
 								if (basemap !== this.currentBasemap) {
@@ -212,6 +226,66 @@ define([
 
             if (isAdded) this.sortMenuItems();  // resort menu items
 
+            // change the basemap to the next available timeslot if current basemap is out of bounds
+            if (isBMOutOfBounds) {
+
+
+
+				var diffdate=new Date(this.basemaps[this.activeBasemap].ms_date);
+
+				console.log("@@@@ outof bound s   diffdate",diffdate,"this.availableWMSBasemaps",this.availableWMSBasemaps);
+
+
+                var arr=[];
+				array.forEach(this.availableWMSBasemaps, function (basemap) {
+					arr.push(new Date(basemap.ms_date));
+ 				}, this);
+
+ 				arr=this.uniq(arr);
+
+ 				// sort chronologically
+ 				arr.sort(function(a,b) {
+					//a = new Date(a);
+					//b = new Date(b);
+					return a-b;
+                });
+
+                console.log("@@@@arr 2",arr);
+
+                // sort by distance from current basemap date
+				arr.sort(function(a, b) {
+					var distancea = Math.abs(diffdate - a);
+					var distanceb = Math.abs(diffdate - b);
+ 					return distancea - distanceb; // sort a before b when the distance is smaller
+				});
+
+
+               var afterdates=arr.filter(function(d) {
+                   return d - diffdate > 0;
+               });
+              //  console.log("@@@@arr 4",arr);
+              // console.log("@@@@afterdates",afterdates);
+
+               // get the basemap with date of afterdates[0]
+             var newActvBM=null;
+             array.forEach(this.availableWMSBasemaps, function (basemap) {
+                  var bmdate=new Date(basemap.ms_date);
+                  if (bmdate.valueOf()==afterdates[0].valueOf()){
+					  //this.activeBasemap=basemap;
+				 	  newActvBM=basemap;
+				   }
+             }, this);
+
+            // console.log("updateLocation newActvBM ",newActvBM);
+
+            if (newActvBM !=null)  this.activeBasemap=newActvBM.basemap.id;
+
+		  console.log("updateLocation basemap out of bounds changing to ",newActvBM,this.activeBasemap,this.basemaps[this.activeBasemap].title);
+
+
+
+			}
+
             // set the dropdown selection to the current basemap
             this.autoCheckDropdownItem(this.basemaps[this.activeBasemap].title) ;
 
@@ -223,6 +297,13 @@ define([
             });
 
 		}
+        ,uniq: function (a) {
+			var seen = {};
+			return a.filter(function(item) {
+				return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+			});
+		}
+
 		,getSortedIdx: function(basemapid){
             var idx=-1;
             var srtarry=new Array();
@@ -258,7 +339,7 @@ define([
             array.forEach(this.basemapsToShow, function (basemap) {
                 if (this.basemaps.hasOwnProperty(basemap)) {
                  if (this.basemaps[basemap].ms_url || (this.basemaps[basemap].image_slider)) {
-                         this.availableWMSBasemaps.push(this.basemaps[basemap]);
+                         //this.availableWMSBasemaps.push(this.basemaps[basemap]);
 				 }
                  if (srtarry.indexOf(this.basemaps[basemap].title) !=-1){
 						var menuItem = new MenuItem({
@@ -266,6 +347,7 @@ define([
 							label: this.basemaps[basemap].title,
 							iconClass: (basemap == this.mapStartBasemap) ? 'selectedIcon' : 'emptyIcon',
 							onClick: lang.hitch(this, function () {
+								console.log("dropdown clickedd",basemap,this.basemap);
 								if (basemap !== this.currentBasemap) {
 									_this.activeBasemap=this.basemap;
 									if (this.basemaps[basemap].ms_url) {
@@ -298,6 +380,7 @@ define([
 		}
         ,toggleCustomBasemap : function(bm,bm_id){
 		   this.activeBasemap=bm_id;
+		   console.log("toggleCustomBasemap",bm,bm_id);
 
            this.hideBaseMap();
             var mslyr=new MapservLayer({
@@ -318,6 +401,11 @@ define([
 
 		},
 		toggleAGSBasemap: function(bm_id){
+			 console.log("toggleAGSBasemap",bm_id);
+
+			 this.activeBasemap=bm_id;
+
+
 		   if (this.mode === 'custom') {
     		     this.gallery.select(bm_id);
 
@@ -358,6 +446,7 @@ define([
         startup: function () {
            this.inherited(arguments);
            this.activeBasemap=this.mapStartBasemap;
+           console.log("startup",this.activeBasemap);
 
            if (this.mode === 'custom') {
                 if (this.map.getBasemap() !== this.mapStartBasemap) { //based off the title of custom basemaps in viewer.js config

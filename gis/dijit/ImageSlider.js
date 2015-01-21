@@ -92,7 +92,7 @@ define([
             });
         }
         ,updateSliderIndex: function(bm){
-
+          console.log("updateSliderIndex",bm);
           this.disableChangeBasemap=true;  // we want to suppress changebasemap from publishing request to modbasemaps
           var newidx=-1;
 
@@ -109,6 +109,8 @@ define([
 			this.disableChangeBasemap=false;
 	    }
         ,updateRanges: function () {  // updates the date ranges for image datasets that are within the visual map extent
+
+            console.log("updateRanges  this.activeBasemap",this.activeBasemap);
 
             connect.disconnect(this.ts_ocbm_event);
             ///////////////////////////////////////////////////////////////////////////////////
@@ -161,6 +163,9 @@ define([
 		}
 
         ,changeBasemap: function (evt) {  // changes the basemap to the selected image dataset
+
+            console.log("changeBasemap",evt," this.disableChangeBasemap",this.disableChangeBasemap);
+
             if (!this.disableChangeBasemap) {
             // update the label
             /*
@@ -186,6 +191,8 @@ define([
 					 this.activeBasemap=newActvBM;
 			     }
 			}
+
+			 console.log("changeBasemap set basemap newActvBM",newActvBM);
 
             var _this=this;
             // send a message to mod basemaps to show the selected basemap
